@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="editTextStyle">@style/mEditText</item>
+        <item name="checkboxStyle">@style/mCheckBox</item>
+    </style>
+
+    <style name="mEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/shape_rectangle_bg</item>
+        <item name="android:textColorHint">#AFAFAF</item>
+        <item name="android:textColor">#DDDDDD</item>
+    </style>
+    
+    <style name="mToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="mCheckBox" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/colorAccent</item>
+    </style>
+
+</resources>
