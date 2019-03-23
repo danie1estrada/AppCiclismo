@@ -131,46 +131,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
-        <!--<android.support.design.button.MaterialButton-->
-        <!--android:id="@+id/btn_login_facebook"-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:paddingLeft="8dp"-->
-        <!--android:paddingRight="8dp"-->
-        <!--android:text="Iniciar sesión con Facebook"-->
-        <!--android:textColor="#FFF"-->
-        <!--android:textSize="12sp"-->
-        <!--app:backgroundTint="#3b5998"-->
-        <!--app:cornerRadius="0dp"-->
-        <!--app:icon="@drawable/icon_facebook"-->
-        <!--app:iconGravity="textStart"-->
-        <!--app:iconPadding="24dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/btn_register" />-->
-
-        <!--<android.support.design.button.MaterialButton-->
-        <!--android:id="@+id/btn_login_google"-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:paddingLeft="8dp"-->
-        <!--android:paddingRight="8dp"-->
-        <!--android:text="Iniciar sesión con Google"-->
-        <!--android:textColor="#FFF"-->
-        <!--android:textSize="12sp"-->
-        <!--app:backgroundTint="#d34836"-->
-        <!--app:cornerRadius="0dp"-->
-        <!--app:icon="@drawable/icon_google"-->
-        <!--app:iconGravity="textStart"-->
-        <!--app:iconPadding="24dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/btn_login_facebook" />-->
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
