@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             return new ViewHolder(
                 LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.layout_item, viewGroup, false)
+                .inflate(R.layout.layout_item_recorridos, viewGroup, false)
             );
         }
 
