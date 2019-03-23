@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import app.ciclismo.R;
 
-public class RegisterActivity extends AppCompatActivity
+public class RecorridosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FloatingActionButton fab;

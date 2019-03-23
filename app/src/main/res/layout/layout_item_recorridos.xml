@@ -18,6 +18,7 @@
             android:scaleType="centerCrop"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
+            android:theme="@style/mImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

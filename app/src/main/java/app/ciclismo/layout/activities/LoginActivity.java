@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 import app.ciclismo.R;
 
@@ -13,10 +12,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_main);
+        setContentView(R.layout.activity_login);
     }
 
     public void onClick(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
+        startActivity(new Intent(this, RecorridosActivity.class));
     }
 }
