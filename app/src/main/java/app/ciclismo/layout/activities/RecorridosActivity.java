@@ -1,5 +1,6 @@
 package app.ciclismo.layout.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -56,9 +57,16 @@ public class RecorridosActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fab = findViewById(R.id.fab_nuevo_recorrido);
     }
 
     private void settings() {
+
+    }
+
+    public void startNuevoRecorrido(View view) {
+        startActivity(new Intent(this, NuevoRecorridoActivity.class));
     }
 
     @Override

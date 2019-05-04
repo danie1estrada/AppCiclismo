@@ -42,6 +42,8 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:onClick="startNuevoRecorrido"
+        android:id="@+id/fab_nuevo_recorrido"
         app:srcCompat="@drawable/icon_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
