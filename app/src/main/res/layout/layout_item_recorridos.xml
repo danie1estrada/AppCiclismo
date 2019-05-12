@@ -12,12 +12,12 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/img_preview"
             android:layout_width="0dp"
             android:layout_height="140dp"
-            android:scaleType="centerCrop"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="centerCrop"
             android:theme="@style/mImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +33,9 @@
             android:paddingTop="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView">
+            app:layout_constraintBottom_toBottomOf="@+id/img_preview"
+            app:layout_constraintEnd_toEndOf="@+id/img_preview"
+            app:layout_constraintStart_toStartOf="@+id/img_preview">
 
             <TextView
                 android:id="@+id/textView"
@@ -64,14 +64,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/icon_date"
+            android:drawableLeft="@drawable/icon_calendar"
             android:drawablePadding="4dp"
             android:gravity="center"
             android:text="Fecha:"
             android:textColor="@color/colorTextPrimaryDark"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/img_preview" />
 
         <TextView
             android:id="@+id/label_date"
@@ -112,7 +112,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <android.support.design.button.MaterialButton
-            android:id="@+id/materialButton2"
+            android:id="@+id/btn_recorridos_participar"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
             app:rippleColor="#10000000" />
 
         <android.support.design.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/btn_recorridos_detalles"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,9 +137,9 @@
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             app:backgroundTint="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/materialButton2"
-            app:layout_constraintStart_toEndOf="@+id/materialButton2"
-            app:layout_constraintTop_toTopOf="@+id/materialButton2"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_recorridos_participar"
+            app:layout_constraintStart_toEndOf="@+id/btn_recorridos_participar"
+            app:layout_constraintTop_toTopOf="@+id/btn_recorridos_participar"
             app:rippleColor="#10000000" />
 
         <TextView
