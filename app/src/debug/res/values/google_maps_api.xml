@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=A3:93:47:37:F1:BB:04:D5:C9:0A:15:28:D9:13:45:8F:CC:56:77:3B%3Bapp.ciclismo.layout.activities
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    A3:93:47:37:F1:BB:04:D5:C9:0A:15:28:D9:13:45:8F:CC:56:77:3B
+
+    SHA-1 certificate fingerprint:
+    A3:93:47:37:F1:BB:04:D5:C9:0A:15:28:D9:13:45:8F:CC:56:77:3B
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC_aaOUxxtoqQpw2W1hlBcpE_q9X-gna_U</string>
+</resources>

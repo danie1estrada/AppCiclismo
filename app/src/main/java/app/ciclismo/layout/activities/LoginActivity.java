@@ -16,6 +16,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        startActivity(new Intent(this, RecorridosActivity.class));
+        startActivity(new Intent(this, MapsActivity.class));
     }
 }
