@@ -89,11 +89,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="onClick"
+
             android:text="Iniciar sesión"
             android:textColor="#D3CCC9"
             android:textSize="12sp"
             app:cornerRadius="0dp"
+            android:onClick="login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +112,7 @@
             android:textSize="12sp"
             app:backgroundTint="@color/colorPrimary"
             app:cornerRadius="0dp"
+            android:onClick="onClick"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_login" />
