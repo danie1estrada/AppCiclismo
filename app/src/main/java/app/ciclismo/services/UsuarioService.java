@@ -42,12 +42,6 @@ public class UsuarioService {
         Response.Listener<String> responseListener,
         Response.ErrorListener errorListener
     ) {
-        JSONObject requestBody = new JSONObject();
-        try {
-            requestBody.put("email", email);
-            requestBody.put("password", password);
-        } catch (JSONException e) { }
-
         StringRequest request = new StringRequest(
             Request.Method.POST,
             context.getString(R.string.url) + "usuarios/login",
@@ -57,6 +51,39 @@ public class UsuarioService {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("password", password);
+
+                return params;
+            }
+        };
+
+        queue.addToQueue(request);
+    }
+
+    public void registrarUsuario(
+        final String username,
+        final String nombre,
+        final String primerApellido,
+        final String segundoApellido,
+        final String email,
+        final String password,
+        Response.Listener<String> responseListener,
+        Response.ErrorListener errorListener
+    ) {
+        StringRequest request = new StringRequest(
+            Request.Method.POST,
+            context.getString(R.string.url) + "usuarios",
+            responseListener,
+            errorListener
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("username", username);
+                params.put("nombre", nombre);
+                params.put("primerApellido", primerApellido);
+                params.put("segundpApellido", segundoApellido);
                 params.put("email", email);
                 params.put("password", password);
 

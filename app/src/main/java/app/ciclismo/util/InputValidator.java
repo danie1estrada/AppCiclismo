@@ -25,6 +25,14 @@ public class InputValidator {
         return validatePattern(editText, EMAIL_PATTERN, EMAIL_NOT_VALID_ERROR);
     }
 
+    public static boolean validateMinLength(EditText editText, int minLength) {
+        if (editText.getText().toString().length() < minLength) {
+            editText.setError("Debe contener al menos " + minLength + " caracteres");
+            return false;
+        }
+        return true;
+    }
+
     public static boolean validatePattern(EditText editText, String regex, String message) {
         String input = editText.getText().toString();
         Pattern pattern = Pattern.compile(regex);

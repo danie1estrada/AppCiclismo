@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import app.ciclismo.R;
+import app.ciclismo.services.UsuarioService;
 
 public class RecorridosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,7 +75,15 @@ public class RecorridosActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
+        switch (menuItem.getItemId()) {
+            case R.id.nav_exit:
+                new UsuarioService(this).removerCredenciales();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
+        }
+
+        return true;
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
