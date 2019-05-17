@@ -30,4 +30,8 @@ public class Usuario {
     private String getNombreCompleto() {
         return String.format("%s %s %s", nombre, primerApellido, segundoApellido);
     }
+
+    public String getUsername() {
+        return username;
+    }
 }

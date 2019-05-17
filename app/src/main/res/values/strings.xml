@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App Ciclismo</string>
+    <string name="app_name">Bicis feas</string>
     <string name="title_activity_maps">Map</string>
     <string name="url">http://35.231.103.242/api/</string>
     <string name="app_ciclismo_preference_file"></string>
