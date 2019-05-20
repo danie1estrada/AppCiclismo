@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        usuarioService = new UsuarioService(this);
+        usuarioService = UsuarioService.getInstance(this);
         if (usuarioService.isAuthenticated()) {
             startActivity(new Intent(this, RecorridosActivity.class));
             finish();

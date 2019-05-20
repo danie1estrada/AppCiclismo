@@ -16,11 +16,11 @@
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/label_phone_number"
+        app:layout_constraintBottom_toTopOf="@+id/label_username"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/label_phone_number"
+        android:id="@+id/label_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

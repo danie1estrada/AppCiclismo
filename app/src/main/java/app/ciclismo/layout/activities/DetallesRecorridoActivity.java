@@ -1,11 +1,14 @@
 package app.ciclismo.layout.activities;
 
-import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,20 +26,29 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import app.ciclismo.R;
+import app.ciclismo.layout.adapters.ComentariosAdapter;
+import app.ciclismo.models.Comentario;
 import app.ciclismo.models.Coordenada;
 import app.ciclismo.models.Recorrido;
 import app.ciclismo.services.RecorridoService;
+import app.ciclismo.services.UsuarioService;
 
 public class DetallesRecorridoActivity extends AppCompatActivity implements OnMapReadyCallback {
-
 
     private GoogleMap map;
     private MapView mapView;
     private RecorridoService recorridoService;
+    private UsuarioService usuarioService;
     private ConstraintLayout loadingScreen;
 
-    private TextView titulo, descripcion;
+    private TextView titulo, descripcion, lblComentarios;
     private ImageView foto;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    private RecyclerView rvComentarios;
+    private ComentariosAdapter comentariosAdapter;
+
+    private EditText txtComentario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +63,19 @@ public class DetallesRecorridoActivity extends AppCompatActivity implements OnMa
         descripcion = findViewById(R.id.lbl_detalle_descripcion);
         //loadingScreen.setVisibility(View.GONE);
 
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+
+        comentariosAdapter = new ComentariosAdapter(this);
+        rvComentarios = findViewById(R.id.rv_comentarios);
+        rvComentarios.setLayoutManager(new LinearLayoutManager(this));
+        rvComentarios.setAdapter(comentariosAdapter);
+
         recorridoService = new RecorridoService(this);
+        usuarioService = UsuarioService.getInstance(this);
         foto = findViewById(R.id.foto_recorrido);
 
+        txtComentario = findViewById(R.id.txt_detalle_comentario);
+        lblComentarios = findViewById(R.id.lbl_comentarios);
 
         mapView = findViewById(R.id.map);
         if (mapView != null) {
@@ -82,6 +104,13 @@ public class DetallesRecorridoActivity extends AppCompatActivity implements OnMa
 
     }
 
+    public void enviarComentario(View view) {
+        Comentario comentario = new Comentario(null, txtComentario.getText().toString(), "Username", "");
+        comentariosAdapter.agregar(comentario);
+        txtComentario.setText("");
+        lblComentarios.setText("Comentarios (" + comentariosAdapter.listaComentarios.size() + ")");
+    }
+
     private void cargarRecorrido() {
         loadingScreen.setVisibility(View.VISIBLE);
 
@@ -107,6 +136,7 @@ public class DetallesRecorridoActivity extends AppCompatActivity implements OnMa
 
         Recorrido recorrido = new Gson().fromJson(response, Recorrido.class);
         titulo.setText(recorrido.titulo);
+        collapsingToolbarLayout.setTitle(recorrido.titulo);
         descripcion.setText(recorrido.descripcion);
         Picasso.get().load(recorrido.urlImagenPrevia).into(foto);
 

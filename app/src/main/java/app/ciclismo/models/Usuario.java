@@ -27,7 +27,7 @@ public class Usuario {
         this.urlFotoPerfil = urlFotoPerfil;
     }
 
-    private String getNombreCompleto() {
+    public String getNombreCompleto() {
         return String.format("%s %s %s", nombre, primerApellido, segundoApellido);
     }
 

@@ -42,7 +42,7 @@ public class RegistroActivity extends AppCompatActivity {
         loadingScreen = findViewById(R.id.loading_screen_registro);
         loadingScreen.setVisibility(View.GONE);
 
-        usuarioService = new UsuarioService(this);
+        usuarioService = UsuarioService.getInstance(this);
     }
 
     public void registar(View view) {
@@ -76,7 +76,8 @@ public class RegistroActivity extends AppCompatActivity {
 
     public void responseHandler(String response) {
         loadingScreen.setVisibility(View.GONE);
-        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Te has registrado exitosamente", Toast.LENGTH_LONG).show();
+        finish();
     }
 
     public void errorHandler(VolleyError error) {

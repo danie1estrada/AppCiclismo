@@ -17,6 +17,7 @@ import java.util.Map;
 
 import app.ciclismo.R;
 import app.ciclismo.models.Login;
+import app.ciclismo.models.Usuario;
 
 public class UsuarioService {
 
@@ -24,8 +25,17 @@ public class UsuarioService {
     private SharedPreferences.Editor editor;
     private Context context;
     private Queue queue;
+    private Usuario usuario;
+    private static UsuarioService instance;
 
-    public UsuarioService(Context context) {
+    public static UsuarioService getInstance(Context context) {
+        if (instance == null) {
+            instance = new UsuarioService(context);
+        }
+        return instance;
+    }
+
+    private UsuarioService(Context context) {
         queue = Queue.getInstance(context);
         this.context = context;
 
@@ -57,6 +67,20 @@ public class UsuarioService {
                 return params;
             }
         };
+
+        queue.addToQueue(request);
+    }
+
+    public void getUsuario(
+        Response.Listener<String> responseListener,
+        Response.ErrorListener errorListener
+    ) {
+        StringRequest request = new StringRequest(
+            Request.Method.GET,
+            context.getString(R.string.url) + "usuarios/" + getUserId(),
+            responseListener,
+            errorListener
+        );
 
         queue.addToQueue(request);
     }

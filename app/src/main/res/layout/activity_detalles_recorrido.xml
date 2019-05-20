@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             app:expandedTitleGravity="top"
             app:contentScrim="@color/colorPrimary"
-            app:title="Detalles"
+            app:title="Título del recorrido"
             app:expandedTitleMarginStart="8dp"
             app:expandedTitleMarginTop="130dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -69,7 +69,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
                 </FrameLayout>
 
             </android.support.constraint.ConstraintLayout>
@@ -105,6 +104,7 @@
                 android:text="Título del recorrido"
                 android:textColor="@color/colorTextPrimaryDark"
                 android:textSize="30sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
                 android:textColor="@color/colorTextPrimaryDark"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_titulo_recorrido" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/lbl_detalle_fecha"
@@ -248,31 +248,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_detalle_descripcion" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Comentarios (0)"
-                android:textColor="@color/colorTextPrimaryDark"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_comentario" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_comentarios"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
             <EditText
-                android:id="@+id/txt_comentario"
+                android:id="@+id/txt_detalle_comentario"
                 style="@style/Widget.AppCompat.AutoCompleteTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -297,15 +274,43 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="@color/colorAccent"
+                android:onClick="enviarComentario"
                 android:text="Enviar"
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_comentario" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalle_comentario" />
+
+            <TextView
+                android:id="@+id/lbl_comentarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Comentarios (0)"
+                android:textColor="@color/colorTextPrimaryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_comentario" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_comentarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_comentarios" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
 

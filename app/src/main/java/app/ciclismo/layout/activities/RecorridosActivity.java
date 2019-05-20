@@ -3,6 +3,7 @@ package app.ciclismo.layout.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.button.MaterialButton;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,19 +19,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
 import app.ciclismo.R;
+import app.ciclismo.models.Usuario;
 import app.ciclismo.services.UsuarioService;
 
 public class RecorridosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FloatingActionButton fab;
+    private UsuarioService usuarioService;
+    private TextView fullName, username;
+    private ConstraintLayout loadingScreen;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorridos);
+
 
         initComponents();
     }
@@ -38,6 +50,7 @@ public class RecorridosActivity extends AppCompatActivity
     private void initComponents() {
         create();
         settings();
+        getUsuarioInfo();
     }
 
     private void create() {
@@ -47,6 +60,8 @@ public class RecorridosActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar_register);
         setSupportActionBar(toolbar);
+
+        usuarioService = UsuarioService.getInstance(this);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,22 +77,58 @@ public class RecorridosActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        fullName = navigationView.getHeaderView(0).findViewById(R.id.label_full_name);
+        username = navigationView.getHeaderView(0).findViewById(R.id.label_username);
+
+        loadingScreen = findViewById(R.id.loading_screen_recorridos);
         fab = findViewById(R.id.fab_nuevo_recorrido);
     }
 
     private void settings() {
-
+        fullName.setText("Jéssica");
     }
 
     public void startNuevoRecorrido(View view) {
         startActivity(new Intent(this, DetallesRecorridoActivity.class));
     }
 
+    private void getUsuarioInfo() {
+        loadingScreen.setVisibility(View.VISIBLE);
+
+        usuarioService.getUsuario(
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    responseHandler(response);
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    errorHandler(error);
+                }
+            }
+        );
+    }
+
+    private void responseHandler(String response) {
+        loadingScreen.setVisibility(View.GONE);
+        usuario = new Gson().fromJson(response, Usuario.class);
+
+        fullName.setText(usuario.getNombreCompleto());
+        username.setText(usuario.getUsername());
+    }
+
+    private void errorHandler(VolleyError error) {
+        loadingScreen.setVisibility(View.GONE);
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_exit:
-                new UsuarioService(this).removerCredenciales();
+                usuarioService.removerCredenciales();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
