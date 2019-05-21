@@ -40,7 +40,7 @@ public class ComentariosAdapter extends RecyclerView.Adapter<ComentariosAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Comentario comentario = listaComentarios.get(i);
 
-        viewHolder.username.setText(comentario.idUsuario);
+        viewHolder.username.setText(comentario.usuario.getUsername());
         viewHolder.comentario.setText(comentario.detalles);
     }
 

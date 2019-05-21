@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="@+id/img_preview">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/lbl_item_inicio_dest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -117,10 +117,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="0dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
-            android:text="Participar"
+            android:text="Asistir"
             android:textColor="@color/colorAccent"
             android:textSize="14sp"
             app:backgroundTint="@color/transparent"
@@ -150,11 +149,11 @@
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:drawableLeft="@drawable/icon_people"
-            app:layout_constraintEnd_toStartOf="@+id/textView8"
+            app:layout_constraintEnd_toStartOf="@+id/lbl_item_participantes"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/lbl_item_participantes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

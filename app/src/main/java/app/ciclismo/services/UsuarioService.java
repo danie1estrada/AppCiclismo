@@ -25,7 +25,7 @@ public class UsuarioService {
     private SharedPreferences.Editor editor;
     private Context context;
     private Queue queue;
-    private Usuario usuario;
+    public Usuario usuario;
     private static UsuarioService instance;
 
     public static UsuarioService getInstance(Context context) {

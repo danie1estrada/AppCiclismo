@@ -24,9 +24,14 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import app.ciclismo.R;
+import app.ciclismo.models.Recorrido;
 import app.ciclismo.models.Usuario;
+import app.ciclismo.services.RecorridoService;
 import app.ciclismo.services.UsuarioService;
 
 public class RecorridosActivity extends AppCompatActivity
@@ -37,6 +42,8 @@ public class RecorridosActivity extends AppCompatActivity
     private TextView fullName, username;
     private ConstraintLayout loadingScreen;
     private Usuario usuario;
+    private RecorridoService recorridoService;
+    private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +58,19 @@ public class RecorridosActivity extends AppCompatActivity
         create();
         settings();
         getUsuarioInfo();
+        getRecorridos();
     }
 
     private void create() {
+        adapter = new Adapter(this);
         RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new Adapter(this));
+        recyclerView.setAdapter(adapter);
 
         Toolbar toolbar = findViewById(R.id.toolbar_register);
         setSupportActionBar(toolbar);
 
+        recorridoService = new RecorridoService(this);
         usuarioService = UsuarioService.getInstance(this);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -100,27 +110,60 @@ public class RecorridosActivity extends AppCompatActivity
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    responseHandler(response);
+                    usuarioResponseHandler(response);
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    errorHandler(error);
+                    usuarioErrorHandler(error);
                 }
             }
         );
     }
 
-    private void responseHandler(String response) {
+    private void usuarioResponseHandler(String response) {
         loadingScreen.setVisibility(View.GONE);
         usuario = new Gson().fromJson(response, Usuario.class);
 
         fullName.setText(usuario.getNombreCompleto());
         username.setText(usuario.getUsername());
+        usuarioService.usuario = usuario;
     }
 
-    private void errorHandler(VolleyError error) {
+    private void usuarioErrorHandler(VolleyError error) {
+        loadingScreen.setVisibility(View.GONE);
+    }
+
+    private void getRecorridos() {
+        loadingScreen.setVisibility(View.VISIBLE);
+
+        recorridoService.getListaRecorridos(
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    listaRecorridosResponseHandler(response);
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    listaRecorridosErrorHandler(error);
+                }
+            }
+        );
+    }
+
+    private void listaRecorridosResponseHandler(String response) {
+        loadingScreen.setVisibility(View.GONE);
+        Recorrido[] recorridos = new Gson().fromJson(response, Recorrido[].class);
+
+        for (Recorrido recorrido : recorridos) {
+            adapter.agregarRecorrido(recorrido);
+        }
+    }
+
+    private void listaRecorridosErrorHandler(VolleyError error) {
         loadingScreen.setVisibility(View.GONE);
     }
 
@@ -140,14 +183,20 @@ public class RecorridosActivity extends AppCompatActivity
     class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private Context context;
+        ArrayList<Recorrido> listaRecorridos;
 
         public Adapter(Context context) {
+            listaRecorridos = new ArrayList<>();
             this.context = context;
         }
 
-        @NonNull
+        public void agregarRecorrido(Recorrido recorrido) {
+            listaRecorridos.add(recorrido);
+            notifyDataSetChanged();
+        }
+
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             return new ViewHolder(
                 LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.layout_item_recorridos, viewGroup, false)
@@ -155,37 +204,53 @@ public class RecorridosActivity extends AppCompatActivity
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+            final Recorrido recorrido = listaRecorridos.get(i);
+            viewHolder.inicioDest.setText(recorrido.lugarInicio + " - " + recorrido.lugarDestino);
+
+            Picasso.get().load(recorrido.urlImagenPrevia).into(viewHolder.imagen);
+            viewHolder.participantes.setText(String.valueOf(recorrido.asistentes));
+            viewHolder.fecha.setText(recorrido.fecha);
+            viewHolder.hora.setText(recorrido.hora);
             viewHolder.imagen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(context, DetallesRecorridoActivity.class));
+                    Intent intent = new Intent(context, DetallesRecorridoActivity.class);
+                    intent.putExtra("idRecorrido", recorrido.id);
+                    startActivity(intent);
                 }
             });
 
             viewHolder.btnDetalles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(context, DetallesRecorridoActivity.class));
+                    Intent intent = new Intent(context, DetallesRecorridoActivity.class);
+                    intent.putExtra("idRecorrido", recorrido.id);
+                    startActivity(intent);
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return 4;
+            return listaRecorridos.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView imagen;
             MaterialButton btnDetalles, btnParticipar;
+            TextView inicioDest, fecha, hora, participantes;
 
-            public ViewHolder(@NonNull View itemView) {
+            public ViewHolder(View itemView) {
                 super(itemView);
                 imagen = itemView.findViewById(R.id.img_preview);
                 btnDetalles = itemView.findViewById(R.id.btn_recorridos_detalles);
                 btnParticipar = itemView.findViewById(R.id.btn_recorridos_participar);
+                inicioDest = itemView.findViewById(R.id.lbl_item_inicio_dest);
+                fecha = itemView.findViewById(R.id.label_date);
+                hora = itemView.findViewById(R.id.label_hour);
+                participantes = itemView.findViewById(R.id.lbl_item_participantes);
             }
         }
     }

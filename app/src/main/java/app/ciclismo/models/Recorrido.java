@@ -2,22 +2,29 @@ package app.ciclismo.models;
 
 public class Recorrido {
 
+    public String id;
     public String titulo;
     public String urlImagenPrevia;
     public String descripcion;
     public String lugarInicio;
     public String lugarDestino;
+    public String fecha;
+    public String hora;
+    public int asistentes;
     public Coordenada[] listaCoordenadas;
     
     public Recorrido(
-        String titulo, String urlImagenPrevia, String descripcion, String lugarInicio,
-        String lugarDestino, Coordenada[] listaCoordenadas
+        String id, String titulo, String urlImagenPrevia, String descripcion, String lugarInicio,
+        String lugarDestino, String fecha, String hora, int asistentes, Coordenada[] listaCoordenadas
     ) {
         this.titulo = titulo;
         this.urlImagenPrevia = urlImagenPrevia;
         this.descripcion = descripcion;
         this.lugarInicio = lugarInicio;
         this.lugarDestino = lugarDestino;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.asistentes = asistentes;
         this.listaCoordenadas = listaCoordenadas;
     }
 

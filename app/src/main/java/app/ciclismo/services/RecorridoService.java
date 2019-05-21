@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.ciclismo.R;
+import app.ciclismo.models.Comentario;
 
 public class RecorridoService {
 
@@ -23,8 +24,21 @@ public class RecorridoService {
         queue = Queue.getInstance(context);
     }
 
-    public void getRecorrido
-    (
+    public void getListaRecorridos(
+        Response.Listener<String> responseListener,
+        Response.ErrorListener errorListener
+    ) {
+        StringRequest request = new StringRequest(
+            Request.Method.GET,
+            context.getString(R.string.url) + "recorridos",
+            responseListener,
+            errorListener
+        );
+
+        queue.addToQueue(request);
+    }
+
+    public void getRecorrido(
         String id,
         Response.Listener<String> responseListener,
         Response.ErrorListener errorListener
@@ -40,17 +54,29 @@ public class RecorridoService {
         queue.addToQueue(request);
     }
 
-    public void comentarRecorrido
-    (
-            final String idRecorrido,
-            final String idUsuario,
-            final String detalles,
+    public void cargarComentarios(
+            String idRecorrido,
             Response.Listener<String> responseListener,
             Response.ErrorListener errorListener
     ) {
-        String url = context.getString(R.string.url) + "comentariosRecorrido";
         StringRequest request = new StringRequest(
             Request.Method.GET,
+            context.getString(R.string.url) + "recorridos/" + idRecorrido + "/comentarios",
+            responseListener,
+            errorListener
+        );
+
+        queue.addToQueue(request);
+    }
+
+    public void comentarRecorrido(
+        final Comentario comentario,
+        Response.Listener<String> responseListener,
+        Response.ErrorListener errorListener
+    ) {
+        String url = context.getString(R.string.url) + "comentariosRecorrido";
+        StringRequest request = new StringRequest(
+            Request.Method.POST,
             url,
             responseListener,
             errorListener
@@ -59,9 +85,9 @@ public class RecorridoService {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                params.put("idUsuario", idUsuario);
-                params.put("idRecorrido", idRecorrido);
-                params.put("detalles", detalles);
+                params.put("idUsuario", comentario.idUsuario);
+                params.put("idRecorrido", comentario.idRecorrido);
+                params.put("detalles", comentario.detalles);
 
                 return params;
             }
