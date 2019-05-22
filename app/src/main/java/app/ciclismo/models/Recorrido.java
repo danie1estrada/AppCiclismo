@@ -17,6 +17,7 @@ public class Recorrido {
         String id, String titulo, String urlImagenPrevia, String descripcion, String lugarInicio,
         String lugarDestino, String fecha, String hora, int asistentes, Coordenada[] listaCoordenadas
     ) {
+        this.id = id;
         this.titulo = titulo;
         this.urlImagenPrevia = urlImagenPrevia;
         this.descripcion = descripcion;

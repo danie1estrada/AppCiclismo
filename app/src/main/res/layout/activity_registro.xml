@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".layout.activities.RegistroActivity">
 
     <FrameLayout
@@ -16,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/image_acivity_registro"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
@@ -23,8 +25,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bg_main_2" />
+            app:layout_constraintTop_toTopOf="parent" />
     </FrameLayout>
 
     <TextView
@@ -151,11 +152,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:onClick="registar"
             android:text="Registrarse"
             android:textColor="#D3CCC9"
             android:textSize="12sp"
             app:cornerRadius="0dp"
-            android:onClick="registar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_confirm_password"
@@ -166,12 +167,12 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:onClick="volver"
             android:text="Volver"
             android:textColor="#D3CCC9"
             android:textSize="12sp"
             app:backgroundTint="@color/colorPrimary"
             app:cornerRadius="0dp"
-            android:onClick="volver"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

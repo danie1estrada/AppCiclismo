@@ -27,7 +27,7 @@ public class InputValidator {
 
     public static boolean validateMinLength(EditText editText, int minLength) {
         if (editText.getText().toString().length() < minLength) {
-            editText.setError("Debe contener al menos " + minLength + " caracteres");
+            editText.setError("La contraseña debe contener al menos " + minLength + " caracteres");
             return false;
         }
         return true;

@@ -26,8 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/bg_main_2"
-        tools:srcCompat="@drawable/bg_main_2" />
+        app:srcCompat="@color/colorTextPrimaryDark" />
 
     <TextView
         android:id="@+id/txt_comentario_username"

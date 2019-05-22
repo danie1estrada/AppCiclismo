@@ -56,9 +56,8 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/img_explora"
                     app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="0.5"/>
+                    app:layout_collapseParallaxMultiplier="0.5" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -79,6 +78,8 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />
         </android.support.design.widget.CollapsingToolbarLayout>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -280,6 +281,8 @@
                 android:onClick="enviarComentario"
                 android:text="Enviar"
                 android:textColor="#FFFFFF"
+                app:icon="@drawable/icon_send"
+                app:iconGravity="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_detalle_comentario" />

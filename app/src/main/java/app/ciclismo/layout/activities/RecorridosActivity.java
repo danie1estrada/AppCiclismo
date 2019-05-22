@@ -7,6 +7,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.button.MaterialButton;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -54,11 +55,16 @@ public class RecorridosActivity extends AppCompatActivity
         initComponents();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getRecorridos();
+    }
+
     private void initComponents() {
         create();
         settings();
         getUsuarioInfo();
-        getRecorridos();
     }
 
     private void create() {
@@ -137,6 +143,7 @@ public class RecorridosActivity extends AppCompatActivity
 
     private void getRecorridos() {
         loadingScreen.setVisibility(View.VISIBLE);
+        adapter.listaRecorridos.clear();
 
         recorridoService.getListaRecorridos(
             new Response.Listener<String>() {
@@ -174,6 +181,9 @@ public class RecorridosActivity extends AppCompatActivity
                 usuarioService.removerCredenciales();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
+                break;
+            case R.id.nav_feedback:
+                startActivity(new Intent(this, FeedbackActivity.class));
                 break;
         }
 
@@ -227,6 +237,20 @@ public class RecorridosActivity extends AppCompatActivity
                     Intent intent = new Intent(context, DetallesRecorridoActivity.class);
                     intent.putExtra("idRecorrido", recorrido.id);
                     startActivity(intent);
+                }
+            });
+            viewHolder.btnParticipar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Snackbar.make(v, "Te has inscrito a este recorrido", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(context.getResources().getColor(R.color.colorAccent))
+                            .setAction("Ok", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            })
+                            .show();
                 }
             });
         }

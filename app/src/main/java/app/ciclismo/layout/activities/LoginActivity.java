@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import app.ciclismo.R;
 import app.ciclismo.models.Login;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private UsuarioService usuarioService;
     private EditText txtEmail;
     private EditText txtPassword;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         loadingScreen = findViewById(R.id.loading_screen_login);
         txtEmail = findViewById(R.id.txt_email);
         txtPassword = findViewById(R.id.txt_password);
+        image = findViewById(R.id.image_activity_login);
+        Picasso.get().load("https://cdn.pixabay.com/photo/2017/08/11/11/08/professional-road-bicycle-racer-2630333_960_720.jpg").into(image);
     }
 
     public void registrarse(View view) {
