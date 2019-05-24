@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(this, RegistroActivity.class));
     }
 
+    public void recuperarPassword(View view) {
+        startActivity(new Intent(this, RecuperarPasswordActivity.class));
+    }
+
     public void login(View view) {
         if (!validarLogin())
             return;

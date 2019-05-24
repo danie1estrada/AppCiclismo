@@ -23,26 +23,28 @@ import app.ciclismo.R;
 import app.ciclismo.services.Queue;
 import app.ciclismo.util.InputValidator;
 
-public class RecuperarPasswordActivity extends AppCompatActivity {
+public class RecuperarPasswordPt2Activity extends AppCompatActivity {
 
-    private Queue queue;
-    private EditText email;
+    private EditText nip, password, cPassword;
     private ConstraintLayout loadingScreen;
     private Context context;
+    private Queue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recuperar_password);
+        setContentView(R.layout.activity_recuperar_password_pt2);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_password_recovery));
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_password_recovery_pt2));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loadingScreen = findViewById(R.id.loading_screen_pr);
+        nip = findViewById(R.id.txt_nip);
+        loadingScreen = findViewById(R.id.loading_screen_pr2);
         loadingScreen.setVisibility(View.GONE);
-        email = findViewById(R.id.txt_email_pr);
-        queue = Queue.getInstance(this);
+        password = findViewById(R.id.txt_new_password);
+        cPassword = findViewById(R.id.txt_npass_confirm);
         context = this;
+        queue = Queue.getInstance(this);
     }
 
     @Override
@@ -51,33 +53,37 @@ public class RecuperarPasswordActivity extends AppCompatActivity {
         return true;
     }
 
-    public void enviarCodigo(View view) {
+    public void cambiarPassword(View view) {
         if (!validar())
             return;
 
         loadingScreen.setVisibility(View.VISIBLE);
-
         StringRequest request = new StringRequest(
             Request.Method.POST,
-            getString(R.string.url) + "usuarios/enviar-correo-password",
+            getString(R.string.url) + "usuarios/cambiar-password",
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    startActivity(new Intent(context, RecuperarPasswordPt2Activity.class));
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    Toast.makeText(context, "Contraseña reestablecida", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     loadingScreen.setVisibility(View.GONE);
-                    Toast.makeText(context, "Ha ocurrido un error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                 }
             }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email.getText().toString());
+                params.put("nip", nip.getText().toString());
+                params.put("password", password.getText().toString());
 
                 return params;
             }
@@ -86,16 +92,20 @@ public class RecuperarPasswordActivity extends AppCompatActivity {
         queue.addToQueue(request);
     }
 
-    private boolean validar() {
+    public boolean validar() {
         int validaciones = 0;
 
-        if (InputValidator.validateEmail(email))
+        if (InputValidator.validateMinLength(password, 6))
             validaciones++;
 
-        if (InputValidator.validateFieldNotEmpty(email)) {
+        if (InputValidator.validateFieldNotEmpty(password))
             validaciones++;
-        }
 
-        return validaciones == 2;
+        if (password.getText().toString().equals(cPassword.getText().toString()))
+            validaciones++;
+        else
+            cPassword.setError("Las contraseñas deben coincidir");
+
+        return validaciones == 3;
     }
 }

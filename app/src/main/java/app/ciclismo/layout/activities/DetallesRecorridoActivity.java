@@ -60,6 +60,11 @@ public class DetallesRecorridoActivity extends AppCompatActivity implements OnMa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         idRecorrido = getIntent().getStringExtra("idRecorrido");
+        if (idRecorrido == "" || idRecorrido == null) {
+            Toast.makeText(this, "No se ha podido cargar el recorrido", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
         loadingScreen = findViewById(R.id.loading_screen_detalle_recorrido);
         titulo = findViewById(R.id.lbl_titulo_recorrido);

@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".layout.activities.FeedbackActivity"></activity>
+        <activity android:name=".layout.activities.MapaActivity"></activity>
+        <activity android:name=".layout.activities.NuevoRecorridoActivity" />
+        <activity android:name=".layout.activities.RecuperarPasswordPt2Activity" />
+        <activity android:name=".layout.activities.FeedbackActivity" />
         <activity android:name=".layout.activities.RecuperarPasswordActivity" />
         <activity android:name=".layout.activities.RegistroActivity" />
         <!--

@@ -12,10 +12,12 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import app.ciclismo.R;
+import app.ciclismo.models.Coordenada;
 import app.ciclismo.models.Login;
 import app.ciclismo.models.Usuario;
 
@@ -27,6 +29,16 @@ public class UsuarioService {
     private Queue queue;
     public Usuario usuario;
     private static UsuarioService instance;
+    public ArrayList<Coordenada> coordenadas;
+
+    public Coordenada[] getCoordenadas() {
+        Coordenada[] c = new Coordenada[coordenadas.size()];
+        for (int i = 0; i < c.length; i++) {
+            c[i] = coordenadas.get(i);
+        }
+
+        return c;
+    }
 
     public static UsuarioService getInstance(Context context) {
         if (instance == null) {
@@ -36,6 +48,7 @@ public class UsuarioService {
     }
 
     private UsuarioService(Context context) {
+        coordenadas = new ArrayList<Coordenada>();
         queue = Queue.getInstance(context);
         this.context = context;
 

@@ -21,17 +21,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import app.ciclismo.R;
 import app.ciclismo.models.Recorrido;
 import app.ciclismo.models.Usuario;
+import app.ciclismo.services.Queue;
 import app.ciclismo.services.RecorridoService;
 import app.ciclismo.services.UsuarioService;
 
@@ -105,8 +113,8 @@ public class RecorridosActivity extends AppCompatActivity
         fullName.setText("Jéssica");
     }
 
-    public void startNuevoRecorrido(View view) {
-        startActivity(new Intent(this, DetallesRecorridoActivity.class));
+    public void crearNuevoRecorrido(View view) {
+        startActivity(new Intent(this, NuevoRecorridoActivity.class));
     }
 
     private void getUsuarioInfo() {
@@ -193,11 +201,13 @@ public class RecorridosActivity extends AppCompatActivity
     class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private Context context;
+        private Queue queue;
         ArrayList<Recorrido> listaRecorridos;
 
         public Adapter(Context context) {
             listaRecorridos = new ArrayList<>();
             this.context = context;
+            queue = Queue.getInstance(context);
         }
 
         public void agregarRecorrido(Recorrido recorrido) {
@@ -242,17 +252,50 @@ public class RecorridosActivity extends AppCompatActivity
             viewHolder.btnParticipar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(v, "Te has inscrito a este recorrido", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(context.getResources().getColor(R.color.colorAccent))
-                            .setAction("Ok", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            })
-                            .show();
+                    asistir(recorrido, v);
                 }
             });
+        }
+
+        private void asistir(Recorrido recorrido, final View view) {
+            loadingScreen.setVisibility(View.VISIBLE);
+            JSONObject requestBody = null;
+            recorrido.asistentes++;
+
+            try {
+                 requestBody = new JSONObject(new Gson().toJson(recorrido));
+            } catch (JSONException e) { }
+
+            JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.PUT,
+                context.getString(R.string.url) + "recorridos/" + recorrido.id,
+                requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadingScreen.setVisibility(View.GONE);
+                        notifyDataSetChanged();
+                        Snackbar.make(view, "Te has inscrito a este recorrido", Snackbar.LENGTH_LONG)
+                                .setActionTextColor(context.getResources().getColor(R.color.colorAccent))
+                                .setAction("Ok", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                })
+                                .show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loadingScreen.setVisibility(View.GONE);
+                        Toast.makeText(context, "Ha ocurrido un error al inscribirse al recorrido", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            );
+
+            queue.addToQueue(request);
         }
 
         @Override
